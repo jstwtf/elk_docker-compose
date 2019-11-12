@@ -1,4 +1,5 @@
+.gitignore
 zabbix*
 mvml*
 jre*
-docker/elasticsearch/data
+**/nodes
