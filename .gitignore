@@ -1,4 +1,4 @@
 zabbix*
 mvml*
 jre*
-docker/elasticsearch
+docker/elasticsearch/data
