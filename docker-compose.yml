@@ -3,7 +3,7 @@ version: '3.3'
 services:
   kibana:
     restart: always
-    hostname: kibana.dominantsugar.ru
+    hostname: kibana
     image: kibana:7.2.0
     links:
       - elasticsearch
@@ -15,7 +15,7 @@ services:
  
   logstash:
     restart: unless-stopped
-    hostname: logstash.dominantsugar.ru
+    hostname: logstash
     image: logstash:7.2.0
     volumes:
             - /opt/docker/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:rw
@@ -36,7 +36,7 @@ services:
 
   elasticsearch:
     restart: unless-stopped
-    hostname: elasticsearch.dominantsugar.ru
+    hostname: elasticsearch
     image: elasticsearch:7.2.0
     environment:
       - node.name=es01
