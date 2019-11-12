@@ -1,0 +1,53 @@
+version: '3.3'
+
+services:
+  kibana:
+    restart: always
+    hostname: kibana.dominantsugar.ru
+    image: kibana:7.2.0
+    links:
+      - elasticsearch
+    ports:
+      - 5601:5601
+    container_name: kibana
+    networks:
+      - esnet
+ 
+  logstash:
+    restart: unless-stopped
+    hostname: logstash.dominantsugar.ru
+    image: logstash:7.2.0
+    volumes:
+            - /opt/docker/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:rw
+            - /opt/docker/logstash/pipeline/collect.conf:/usr/share/logstash/pipeline/collect.conf:rw
+    ports:
+      - 5044:5044
+      - 5045:5045
+      - 5046:5046
+      - 5047:5047
+      - 5000:5000
+      - 5048:5048
+      - 5040:5050
+    links: 
+     - elasticsearch
+    container_name: logstash
+    networks:
+      - esnet
+
+  elasticsearch:
+    restart: unless-stopped
+    hostname: elasticsearch.dominantsugar.ru
+    image: elasticsearch:7.2.0
+    environment:
+      - node.name=es01
+      - discovery.type=single-node
+    ports:
+      - 9200:9200
+    networks:
+      - esnet
+    volumes:
+      - /opt/docker/elasticsearch/data:/usr/share/elasticsearch/data:rw
+    container_name: elasticsearch  
+networks:
+  esnet:
+
